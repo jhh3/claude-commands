@@ -1,0 +1,3 @@
+- Commit and push my recent changes.
+- Run `make total-format` from the root of the repository before pushing.
+- Craft a message that summarizes the changes made.
