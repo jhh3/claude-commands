@@ -60,4 +60,8 @@ After completing this analysis, you should be able to:
 - **Question everything**: Don't assume - verify your understanding by cross-referencing
 - **Think holistically**: Consider how this code fits into the larger system architecture
 
+### VERY IMPORTANT
+
+- DO NOT USE A TASK -- this all must load into main CONTEXT directly.
+
 This is a critical task requiring expert-level understanding. Apply deep analytical thinking and maintain extreme attention to detail throughout your review.
