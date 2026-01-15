@@ -1,4 +1,4 @@
-Read and address the PR feedback.
+Read and address the PR feedback using the pr-feedback-resolver subagent.
 
 ## Workflow Summary:
 
