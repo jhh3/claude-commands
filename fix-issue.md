@@ -15,3 +15,5 @@ make total-format # from the repo root
 ```
 
 6. Create a PR using the instructions in ~/.claude/commands/create-pr.md
+
+^ do not miss any steps! it's critical that you don't forget to run the script to wait for a review.
