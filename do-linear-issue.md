@@ -19,8 +19,11 @@ Extract and record to `@issue-context.md`:
 - **Title**: <title>
 - **Description**: <description>
 - **Acceptance Criteria**: (if any)
+- **Implementation Details**: (if the issue specifies an approach, code patterns, or specific implementation guidance—capture it ALL here verbatim or near-verbatim; do NOT summarize away specifics)
 - **Comments/Discussion**: (summarize relevant context)
 - **Suggested Branch**: <branch-name>
+
+> **NOTE**: Many Linear issues contain detailed implementation guidance from the author. Preserve this information faithfully—it should drive the implementation, not be lost in translation.
 
 ### Step 1.2: Branch Setup
 
@@ -438,6 +441,8 @@ Keep it concise. Max 100 words.
 ---
 
 ## ORCHESTRATION RULES
+
+> **⚠️ PRESERVE ISSUE DETAILS**: Linear issues often contain detailed implementation guidance, specific approaches, code snippets, or architectural decisions from the author. This information is CRITICAL and must NOT be lost or ignored when invoking subagents. Always include the full relevant details from the issue in agent prompts—do not summarize away specifics. If the issue specifies an approach, the subagent should follow it unless there's a compelling reason not to.
 
 1. **Context is mandatory**: Never invoke a sub-agent without providing `@issue-context.md` reference.
 
