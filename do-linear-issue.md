@@ -147,9 +147,11 @@ Follow instructions in `~/.claude/commands/create-pr.md`
 **CRITICAL POST-PR STEPS (DO NOT SKIP):**
 
 1. **Wait for Gemini Review**: After creating the PR, run the Gemini Code Assist review script:
+
    ```bash
-   timeout 300 ./scripts/wait-for-gemini-review.sh <PR_URL>
+   timeout 600 ./scripts/wait-for-gemini-review.sh <PR_URL>
    ```
+
    If the review is detected, address the feedback per `~/.claude/commands/address-pr-feedback.md`
 
 2. **Watch CI Checks**: After addressing feedback and pushing, watch for CI status checks:
@@ -390,9 +392,11 @@ Follow `~/.claude/commands/create-pr.md`
 **CRITICAL POST-PR STEPS (DO NOT SKIP):**
 
 1. **Wait for Gemini Review**: After creating the PR, run the Gemini Code Assist review script:
+
    ```bash
-   timeout 300 ./scripts/wait-for-gemini-review.sh <PR_URL>
+   timeout 600 ./scripts/wait-for-gemini-review.sh <PR_URL>
    ```
+
    If the review is detected, address the feedback per `~/.claude/commands/address-pr-feedback.md`
 
 2. **Watch CI Checks**: After addressing feedback and pushing, watch for CI status checks:

@@ -20,7 +20,7 @@ test -f ./scripts/wait-for-gemini-review.sh && echo "exists"
 If the script exists, run it with a 5 minute timeout to wait for the Gemini Code Assist review:
 
 ```bash
-timeout 300 ./scripts/wait-for-gemini-review.sh <PR_URL>
+timeout 600 ./scripts/wait-for-gemini-review.sh <PR_URL>
 ```
 
 Where `<PR_URL>` is the URL of the PR you just created (e.g., `https://github.com/Nullframe/studio/pull/1234`).

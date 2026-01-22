@@ -16,4 +16,20 @@ make total-format # from the repo root
 
 6. Create a PR using the instructions in ~/.claude/commands/create-pr.md
 
-^ do not miss any steps! it's critical that you don't forget to run the script to wait for a review.
+7. After creating the PR, wait for Gemini Code Assist review:
+
+```bash
+timeout 600 ./scripts/wait-for-gemini-review.sh <PR_URL>
+```
+
+If the review is detected, address the feedback per `~/.claude/commands/address-pr-feedback.md`
+
+8. Watch CI checks and fix any failures:
+
+```bash
+gh pr checks <PR_NUMBER> --watch
+```
+
+If any checks fail, fix them locally, push, and re-watch until all checks pass.
+
+^ do not miss any steps! The PR is NOT complete until both Gemini feedback is addressed AND all CI checks pass.
