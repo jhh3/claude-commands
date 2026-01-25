@@ -4,6 +4,34 @@ $ARGUMENTS
 
 ---
 
+## CRITICAL: SUB-AGENT REQUIREMENT
+
+**You MUST use the Task tool to invoke sub-agents throughout this workflow.** This is NON-NEGOTIABLE. Do NOT attempt to do the work yourself when the instructions say to invoke an agent.
+
+When you see "Invoke @agent-name", you MUST:
+1. Use the `Task` tool with `subagent_type` set to that agent name
+2. Pass the full prompt/context as specified in the instruction
+3. Wait for the agent's response before proceeding
+
+**Available agents (use these exact names for subagent_type):**
+- `system-architect` - for analysis and design
+- `code-architect` - for implementation
+- `code-simplifier:code-simplifier` - for simplification reviews
+- `arch-code-reviewer` - for code reviews
+
+**Example Task tool usage:**
+```
+Task(
+  subagent_type="system-architect",
+  description="Analyze work request",
+  prompt="<the full prompt from the step>"
+)
+```
+
+**WHY THIS MATTERS:** Sub-agents provide specialized expertise and fresh context. Doing the work yourself instead of delegating defeats the purpose of this orchestrated workflow.
+
+---
+
 ## SKIP CONDITIONS
 
 **Skip Phase 1 (Analysis) if ANY of the following apply:**
@@ -34,7 +62,7 @@ Parse the task description and identify:
 
 ### Step 1.2: Codebase Discovery
 
-Invoke @system-architect with:
+**MANDATORY:** Use the Task tool to invoke @system-architect with:
 
 ```
 ## Task
@@ -58,7 +86,7 @@ Provide:
 
 ### Step 2A.1: Implementation
 
-Invoke @code-architect with:
+**MANDATORY:** Use the Task tool to invoke @code-architect with:
 
 ```
 ## Task
@@ -82,7 +110,7 @@ Implement the following change.
 
 ### Step 2A.2: Simplification Review
 
-Invoke @code-simplifier:code-simplifier with:
+**MANDATORY:** Use the Task tool to invoke @code-simplifier:code-simplifier with:
 
 ```
 ## Task
@@ -111,7 +139,7 @@ Review this changeset for unnecessary complexity.
 
 ### Step 2B.1: Design Document
 
-Invoke @system-architect with:
+**MANDATORY:** Use the Task tool to invoke @system-architect with:
 
 ```
 ## Task
@@ -139,7 +167,7 @@ Provide an implementation plan with:
 
 ### Step 2B.2: Design Review
 
-Invoke BOTH agents with the same context:
+**MANDATORY:** Use the Task tool to invoke BOTH agents IN PARALLEL with the same context:
 
 ```
 ## Task
@@ -171,8 +199,8 @@ Review this design. Provide feedback only - do not edit.
 
 For EACH phase in the design:
 
-1. Invoke @code-architect to implement the phase
-2. Invoke @code-simplifier:code-simplifier to review
+1. **MANDATORY:** Use Task tool to invoke @code-architect to implement the phase
+2. **MANDATORY:** Use Task tool to invoke @code-simplifier:code-simplifier to review
 3. Apply any necessary simplifications
 4. Commit the phase: `git add -A && git commit -m "<descriptive message>"`
 
@@ -203,7 +231,7 @@ Fix any failures before proceeding.
 
 ### Step 3.2: Final Review
 
-Invoke @arch-code-reviewer with:
+**MANDATORY:** Use the Task tool to invoke @arch-code-reviewer with:
 
 ```
 ## Task
@@ -249,15 +277,19 @@ If the user needs to take action (create PR, deploy, etc.), provide clear instru
 
 ## ORCHESTRATION RULES
 
-1. **Always provide full context**: Sub-agents need the original task description and relevant analysis.
+1. **ALWAYS USE THE TASK TOOL**: Every step marked "MANDATORY" or "Invoke @agent" MUST use the Task tool. DO NOT skip this. DO NOT do the work yourself. The sub-agents exist for a reason.
 
-2. **One job per invocation**: Each agent call should have a single, clear deliverable.
+2. **Always provide full context**: Sub-agents need the original task description and relevant analysis.
 
-3. **Document decisions**: When agents make non-obvious choices, capture the reasoning.
+3. **One job per invocation**: Each agent call should have a single, clear deliverable.
 
-4. **Fail forward**: If a step fails after 3 retries, document the failure and notify the user rather than blocking.
+4. **Document decisions**: When agents make non-obvious choices, capture the reasoning.
 
-5. **Keep it simple**: Default to the simplest solution that fully addresses the request.
+5. **Fail forward**: If a step fails after 3 retries, document the failure and notify the user rather than blocking.
+
+6. **Keep it simple**: Default to the simplest solution that fully addresses the request.
+
+**REMINDER:** If you find yourself implementing code, doing analysis, or reviewing changes WITHOUT having used the Task tool to invoke the appropriate sub-agent, you are doing it wrong. STOP and use the Task tool.
 
 ---
 
